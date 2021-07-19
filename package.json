@@ -14,5 +14,12 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
+    },
+    "dependencies": {
+        "jquery": "^3.6.0",
+        "moment": "^2.29.1",
+        "pace-js": "^1.2.4",
+        "sweetalert2": "^11.0.16",
+        "worker-timers": "^7.0.29"
     }
 }
