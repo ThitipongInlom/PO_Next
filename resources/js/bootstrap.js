@@ -8,6 +8,16 @@ window._ = require('lodash');
 
 window.axios = require('axios');
 
+// ตั้งค่า Pace.js เริ่มต้น
+window.axios.interceptors.request.use(function (config) {
+    window.Pace.restart();
+
+    return config;
+}, function (error) {
+
+    return Promise.reject(error);
+});
+
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
