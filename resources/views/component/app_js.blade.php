@@ -1,6 +1,7 @@
     <script type="text/javascript" src="{{ url('js/app.js') }}"></script>
     <script type="text/javascript" src="{{ url('js/component/config.js') }}"></script>
     <script type="text/javascript" src="{{ url('js/component/general.js') }}"></script>
+    <script type="text/javascript" src="{{ url('js/component/updatetime.js') }}"></script>
     <script type="text/javascript" src="{{ url('oneui/js/oneui.app.min.js') }}"></script>
     <script type="text/javascript" src="{{ url('oneui/js/oneui.core.min.js') }}"></script>
     <!-- Plugins -->

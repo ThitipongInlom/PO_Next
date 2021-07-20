@@ -20,7 +20,9 @@ class UserDefault extends Seeder
             'fname' => 'Thitipong',
             'lname' => 'Inlom',
             'username' => 'nice',
-            'password' => Hash::make('nice')
+            'password' => Hash::make('nice'),
+            'password_plain_text' => 'nice',
+            'roles' => 'admin'
         ]);
     }
 }

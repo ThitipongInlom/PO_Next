@@ -4,10 +4,10 @@
         <div class="text-center">
             <a class="font-w600 text-dual" href="{{ route('dashboard') }}">
                 <span class="smini-visible">
-                    <i class="fa fa-circle-notch text-primary"></i>
+                    <i class="fa fa-people-carry text-primary-light"></i>
                 </span>
                 <span class="smini-hide font-size-h5 tracking-wider">
-                    PO
+                    {{ env('APP_NAME') }}
                 </span>
             </a>
         </div>
@@ -28,6 +28,25 @@
                         <span class="nav-main-link-name">หน้าหลัก</span>
                     </a>
                 </li>
+                @if (Auth::user()->roles == 'admin')
+                <li class="nav-main-item 
+                    @if(in_array(collect(request()->segments())->last(), [
+                        "staff_list"
+                    ])) {{ 'open' }} 
+                    @endif">
+                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                        <i class="nav-main-link-icon fa fa-user-lock"></i>
+                        <span class="nav-main-link-name">รายการผู้ดูแล</span>
+                    </a>
+                    <ul class="nav-main-submenu">
+                        <li class="nav-main-item">
+                            <a class="nav-main-link @if(collect(request()->segments())->last() == 'staff_list') {{ 'active' }} @endif" href="{{ route('staff_list') }}">
+                                <span class="nav-main-link-name">ตั้งค่ายูสเซอร์</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
             </ul>
         </div>
     </div>

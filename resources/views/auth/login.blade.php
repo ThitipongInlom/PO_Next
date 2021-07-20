@@ -24,7 +24,7 @@
                             </div>
                             <div class="p-4 p-xl-5 d-xl-flex justify-content-between align-items-center font-size-sm">
                                 <p class="font-w500 text-white-50 mb-0">
-                                    <strong>{{ env('APP_NAME') }} V 0.1</strong> &copy; <span data-toggle="year-copy"></span>
+                                    <strong>{{ env('APP_NAME') }} V {{ env('APP_VERSION') }}</strong> &copy; <span data-toggle="year-copy"></span>
                                 </p>
                                 <ul class="list list-inline mb-0 py-2">
                                     <li class="list-inline-item">
@@ -78,7 +78,7 @@
                             </div>
                             <div class="px-4 py-3 w-100 d-lg-none d-flex flex-column flex-sm-row justify-content-between font-size-sm text-center text-sm-left">
                                 <p class="font-w500 text-black-50 py-2 mb-0">
-                                    <strong>{{ env('APP_NAME') }} V 0.1</strong> &copy; <span data-toggle="year-copy"></span>
+                                    <strong>{{ env('APP_NAME') }} V {{ env('APP_VERSION') }}</strong> &copy; <span data-toggle="year-copy"></span>
                                 </p>
                                 <ul class="list list-inline py-2 mb-0">
                                     <li class="list-inline-item">

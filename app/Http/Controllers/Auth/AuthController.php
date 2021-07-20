@@ -45,7 +45,7 @@ class AuthController extends Controller
         
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             // เช็คว่าถูก ให้เข้าใช้งานได้หรือไม่
-            if (Auth::user()->status == '0') {
+            if (Auth::user()->is_deleted == '0') {
                 Auth::logout();
                 return response()->json([
                     'message' => 'Username ไม่สามารถเข้าใช้งานได้'
@@ -66,6 +66,54 @@ class AuthController extends Controller
                 'message' => 'Username หรือ Password ไม่ถูกต้อง กรุณาเช็คอีกรอบ'
             ], 400);
         }
+    }
+
+    public function submitRegister(Request $request)
+    {
+        $rules = [
+            'fname' => 'required',
+            'lname' => 'required',
+            'email' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'roles' => 'required'
+        ];
+
+        $customMessages = [
+            'required' => 'ไม่พบข้อมูล :attribute',
+            'confirmed' => 'กรุณากรอก :attribute ให้เหมือนกัน',
+            'numeric' => ':attribute ข้อมูลใช้ได้แค่ตัวเลข'
+        ];
+
+        $validation = Validator::make($request->all(), $rules, $customMessages);
+        if ($validation->fails()) {
+            return response()->json([
+                'message' => 'เกิดข้อผิดพลาดในการส่งข้อมูลไม่ครบตามที่กำหนดไว้',
+                'error' => $validation->errors()
+            ], 400); 
+        }
+        // เช็คว่ามีในระบบแล้วหรือไม่
+        $counUser = user::where('username', $request->username)->count();
+        if ($counUser == '1' || $counUser > '1') {
+            return response()->json([
+                'message' => 'Username นี้มีในระบบแล้ว กรุณา ใช้ Username อื่น'
+            ], 400); 
+        }
+        // สร้าง User
+        user::create([
+            'fname' => $request->fname,
+            'lname' => $request->lname,
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'password_plain_text' => $request->password,
+            'roles' => $request->roles,
+            'last_active' => Carbon::now()
+        ]);
+
+        return response()->json([
+            'message' => 'สร้าง User สำเร็จ'
+        ], 200); 
     }
 
     public function submitLogout(Request $request)
