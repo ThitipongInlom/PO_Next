@@ -12,12 +12,17 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\user;
+use App\Models\department;
 
 class StaffListController extends Controller
 {
     public function pageStaffList(Request $request)
     {
-        return view('page/staff_list');
+        $department = department::where('status', '1')->where('is_deleted', '1')->get();
+        
+        return view('admin/staff_list', [
+            'department' => $department
+        ]);
     }
 
     public static function getStaffListTable($request)
@@ -42,13 +47,17 @@ class StaffListController extends Controller
                 }
             })
             ->editColumn('last_active', function($data) {
-                $date_last_active = Carbon::parse($data->last_active)->locale('th');
-                if ($date_last_active->diffInMinutes(Carbon::now()) <= '5') {
-                    $last_active = '<span class="badge badge-pill badge-success">ออนไลน์</span>';
+                if ($data->last_active == null) {
+                    return '<span class="badge badge-pill badge-danger">ออฟไลน์</span>';
                 }else {
-                    $last_active = '<span class="badge badge-pill badge-danger">ออฟไลน์</span>';
+                    $date_last_active = Carbon::parse($data->last_active)->locale('th');
+                    if ($date_last_active->diffInMinutes(Carbon::now()) <= '5') {
+                        $last_active = '<span class="badge badge-pill badge-success">ออนไลน์</span>';
+                    }else {
+                        $last_active = '<span class="badge badge-pill badge-danger">ออฟไลน์</span>';
+                    }
+                    return $last_active;
                 }
-                return $last_active;
             })
             ->addColumn('action', function ($data) {
                 $attrData = "data-user_id='$data->user_id' ";
@@ -179,9 +188,11 @@ class StaffListController extends Controller
                 'error' => $validation->errors()
             ], 400); 
         }
-
+        // อัพเดต ข้อมูลที่ ลบ
         user::where('user_id', $request->user_id)->update([
-            'is_deleted' => '0'
+            'is_deleted' => '0',
+            'by_deleted' => Auth::user()->user_id,
+            'date_deleted' => Carbon::now()
         ]);
 
         return response()->json([

@@ -15,6 +15,9 @@ var readyFormSetting = function readyFormSetting() {
             "create-lname": {
                 required: true
             },
+            "create-department_id": {
+                required: true
+            },
             "create-email": {
                 required: true
             },
@@ -34,6 +37,9 @@ var readyFormSetting = function readyFormSetting() {
             },
             "create-lname": {
                 required: "กรุณากรอก นามสกุลจริง",
+            },
+            "create-department_id": {
+                required: "กรุณาเลือก แผนก",
             },
             "create-email": {
                 required: "กรุณากรอก อีเมล์",
@@ -118,7 +124,7 @@ var readyTableSetting = function readyTableSetting() {
                 "display": $.fn.dataTable.Responsive.display.modal({
                     "header": function (row) {
                         var data = row.data();
-                        return 'ข้อมูลพนักงาน ' + data.staff_name;
+                        return 'ข้อมูลยูสเซอร์ ' + data.full_name;
                     }
                 }),
                 "renderer": $.fn.dataTable.Responsive.renderer.tableAll({
@@ -147,7 +153,7 @@ var readyTableSetting = function readyTableSetting() {
         },
         "columns": [{
             "data": 'full_name',
-            "name": 'full_name',
+            "name": 'fname',
         }, {
             "data": 'roles',
             "name": 'roles',
@@ -175,9 +181,7 @@ var readyTableSetting = function readyTableSetting() {
                 "targets": []
             }
         ],
-        "language": {
-            "url": getLangDataTable()
-        },
+        "language": getLangDataTable(),
         "search": {
             "regex": true
         },
@@ -219,6 +223,7 @@ var submitModalCreate = function submitModalCreate(element) {
         data: {
             fname: $("#create-fname").val(),
             lname: $("#create-lname").val(),
+            department_id: $("#create-department_id").val(),
             email: $("#create-email").val(),
             username: $("#create-username").val(),
             password: $("#create-password").val(),

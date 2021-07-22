@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,7 @@ class AuthController extends Controller
     // Page
     public function pageLogin(Request $request)
     {   
-        $urlImageBackgroundIogin = url(Storage::url("assets/static/image/background_login.jpg"));
+        $urlImageBackgroundIogin = asset(Storage::url("assets/static/image/background_login.jpg"));
 
         return view('auth/login', [
             'urlImageBackgroundIogin' => $urlImageBackgroundIogin
@@ -73,6 +74,7 @@ class AuthController extends Controller
         $rules = [
             'fname' => 'required',
             'lname' => 'required',
+            'department_id' => 'required',
             'email' => 'required',
             'username' => 'required',
             'password' => 'required',
@@ -103,6 +105,7 @@ class AuthController extends Controller
         user::create([
             'fname' => $request->fname,
             'lname' => $request->lname,
+            'department_id' => $request->department_id,
             'email' => $request->email,
             'username' => $request->username,
             'password' => Hash::make($request->password),

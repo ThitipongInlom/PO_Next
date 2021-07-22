@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="th">
+<html dir="ltr" lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,6 +35,7 @@
                                     </div>
                                 </div>
                                 <div class="block-content block-content-full">
+                                    {{ app()->getLocale() }}
                                     <table class="table table-sm table-bordered table-striped table-vcenter js-dataTable-full dataTable" style="width:100%" id="staffListTable" role="grid">
                                         <thead>
                                             <tr role="row" class="text-center">
@@ -81,7 +82,17 @@
                                             <input type="text" class="form-control form-control-sm" id="create-lname" name="create-lname" placeholder="นามสกุลจริง">
                                         </div> 
                                     </div>
-                                    <div class="col-sm-12 col-xl-12">
+                                    <div class="col-sm-12 col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label for="create-department_id">แผนก</label>
+                                            <select class="js-select2 form-control" id="create-department_id" name="create-department_id" style="width: 100%;">
+                                                @foreach ($department as $value)
+                                                    <option value="{{ $value->department_id }}">{{ $value->department_code }} | @if(app()->getLocale() == 'en') {{ $value->department_name_en }} @else {{ $value->department_name_th }} @endif</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-xl-6">
                                         <div class="form-group mb-3">
                                             <label for="create-email">อีเมล์</label>
                                             <input type="text" class="form-control form-control-sm" id="create-email" name="create-email" placeholder="อีเมล์">
@@ -272,6 +283,6 @@
         <!-- APP JS -->
         @include('component.app_js')
         <!-- Page JS -->
-        <script type="text/javascript" src="{{ url('js/page/staff_list.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/admin/staff_list.js') }}"></script>
     </body>
 </html>

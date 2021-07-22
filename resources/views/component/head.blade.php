@@ -1,8 +1,15 @@
 <nav id="sidebar" aria-label="Main Navigation">
+    @php
+        function autoRoutePort($url_name)
+        {
+            $arrayUrl = explode('/', $url_name);
+            return env('APP_URL').'/'.end($arrayUrl);
+        }
+    @endphp
     <!-- Side Header -->
     <div class="content-header bg-white-5">
         <div class="text-center">
-            <a class="font-w600 text-dual" href="{{ route('dashboard') }}">
+            <a class="font-w600 text-dual" href="{{ autoRoutePort(route('dashboard')) }}">
                 <span class="smini-visible">
                     <i class="fa fa-people-carry text-primary-light"></i>
                 </span>
@@ -23,7 +30,7 @@
         <div class="content-side">
             <ul class="nav-main">
                 <li class="nav-main-item">
-                    <a class="nav-main-link @if(collect(request()->segments())->last() == 'dashboard') {{ 'active' }} @endif" href="{{ route('dashboard') }}">
+                    <a class="nav-main-link @if(collect(request()->segments())->last() == 'dashboard') {{ 'active' }} @endif" href="{{ autoRoutePort(route('dashboard')) }}">
                         <i class="nav-main-link-icon fas fa-home"></i>
                         <span class="nav-main-link-name">หน้าหลัก</span>
                     </a>
@@ -40,7 +47,7 @@
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link @if(collect(request()->segments())->last() == 'staff_list') {{ 'active' }} @endif" href="{{ route('staff_list') }}">
+                            <a class="nav-main-link @if(collect(request()->segments())->last() == 'staff_list') {{ 'active' }} @endif" href="{{ autoRoutePort(route('staff_list')) }}">
                                 <span class="nav-main-link-name">ตั้งค่ายูสเซอร์</span>
                             </a>
                         </li>
@@ -65,10 +72,11 @@
         <div class="d-flex align-items-center">
             <div class="dropdown d-inline-block ml-2">
                 @php
+                    $department = DB::table('departments')->where('department_id', Auth::user()->department_id)->first();
                     if (Storage::disk('public')->exists('assets/avatar/'.Auth::user()->avatar) && Auth::user()->avatar != null) {
-                        $avatar = url(Storage::url('assets/avatar/'.Auth::user()->avatar));
+                        $avatar = asset(Storage::url('assets/avatar/'.Auth::user()->avatar));
                     }else {
-                        $avatar = url(Storage::url('assets/static/image/avatar_null.jpg'));
+                        $avatar = asset(Storage::url('assets/static/image/avatar_null.jpg'));
                     }
                 @endphp
                 <button type="button" class="btn btn-sm btn-dual" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,14 +88,14 @@
                     <div class="p-3 text-center bg-primary-dark rounded-top">
                         <img class="img-avatar img-avatar48 img-avatar-thumb" src="{{ $avatar }}" alt="Image Profile">
                         <p class="mt-2 mb-0 text-white font-w500">{{ Auth::user()->fname }}  {{ Auth::user()->lname }}</p>
-                        <p class="mb-0 text-white-50 font-size-sm">Web Developer</p>
+                        <p class="mb-0 text-white-50 font-size-sm">@if(app()->getLocale() == 'en') {{ $department->department_name_en }} @else {{ $department->department_name_th }} @endif</p>
                     </div>
                     <div class="p-2">
                         <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
                             <span class="font-size-sm font-w500"><i class="fas fa-user-cog mr-1"></i>ตั้งค่าบัญชี</span>
                         </a>
                         <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ route('logout') }}">
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ autoRoutePort(route('logout')) }}">
                             <span class="font-size-sm font-w500"><i class="fas fa-sign-out-alt mr-1"></i>ออกจากระบบ</span>
                         </a>
                     </div>

@@ -18,7 +18,9 @@ class User extends Migration
             $table->string('avatar')->nullable();
             $table->string('fname')->nullable();
             $table->string('lname')->nullable();
+            $table->integer('department_id')->nullable();
             $table->string('email')->nullable();
+            $table->string('lang');
             $table->string('username');
             $table->string('password');
             $table->string('password_plain_text');
@@ -27,6 +29,8 @@ class User extends Migration
             $table->string('device')->nullable();
             $table->dateTime('last_active', $precision = 0)->nullable();
             $table->enum('is_deleted', ['0', '1'])->default('1');
+            $table->string('by_deleted')->nullable();
+            $table->dateTime('date_deleted', $precision = 0)->nullable();
             $table->timestamps();
         });
     }

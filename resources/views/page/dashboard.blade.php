@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="th">
+<html dir="ltr" lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,7 +26,7 @@
                 </div>
                 <div class="content">
                     <div class="row row-deck">
-
+                        {{ Cache::get('translations') }}
                     </div>
                 </div>
             </main>

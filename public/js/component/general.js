@@ -91,11 +91,49 @@ var submitChangeData = function submitChangeData(element) {
 
 var getLangDataTable = function getLangDataTable() {
     if ($('html').attr('lang') == 'th') {
-        var url = "//cdn.datatables.net/plug-ins/1.10.13/i18n/Thai.json";
+        var lang = {
+            "sProcessing": "กำลังดำเนินการ...",
+            "sLengthMenu": "แสดง _MENU_ แถว",
+            "sZeroRecords": "ไม่พบข้อมูล",
+            "sInfo": "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+            "sInfoEmpty": "แสดง 0 ถึง 0 จาก 0 แถว",
+            "sInfoFiltered": "(กรองข้อมูล _MAX_ ทุกแถว)",
+            "sInfoPostFix": "",
+            "sSearch": "ค้นหา: ",
+            "sUrl": "",
+            "oPaginate": {
+                "sFirst": "หน้าแรก",
+                "sPrevious": "ก่อนหน้า",
+                "sNext": "ถัดไป",
+                "sLast": "หน้าสุดท้าย"
+            }
+        };
     } else {
-        var url = "//cdn.datatables.net/plug-ins/1.10.13/i18n/English.json";
+        var lang = {
+            "sEmptyTable": "No data available in table",
+            "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+            "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+            "sInfoFiltered": "(filtered from _MAX_ total entries)",
+            "sInfoPostFix": "",
+            "sInfoThousands": ",",
+            "sLengthMenu": "Show _MENU_ entries",
+            "sLoadingRecords": "Loading...",
+            "sProcessing": "Processing...",
+            "sSearch": "Search:",
+            "sZeroRecords": "No matching records found",
+            "oPaginate": {
+                "sFirst": "First",
+                "sLast": "Last",
+                "sNext": "Next",
+                "sPrevious": "Previous"
+            },
+            "oAria": {
+                "sSortAscending": ": activate to sort column ascending",
+                "sSortDescending": ": activate to sort column descending"
+            }
+        };
     }
-    return url;
+    return lang;
 }
 
 var setImagePreviewData = function setImagePreviewData(element) {

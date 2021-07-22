@@ -12,7 +12,9 @@ class user extends Authenticatable
         'avatar',
         'fname',
         'lname',
+        'department_id',
         'email',
+        'lang',
         'username',
         'password',
         'password_plain_text',
@@ -20,7 +22,9 @@ class user extends Authenticatable
         'ip_address',
         'device',
         'last_active',
-        'is_deleted'
+        'is_deleted',
+        'by_deleted',
+        'date_deleted'
     ];
 
     protected $primaryKey = 'user_id';

@@ -10,3 +10,6 @@
         </div>
     </div>
 </footer>
+<script>
+    window.translations = {!! Cache::get('translations') !!};
+</script>
