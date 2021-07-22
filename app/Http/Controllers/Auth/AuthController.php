@@ -56,8 +56,11 @@ class AuthController extends Controller
             // อัพเดต หลังจาก Login สำเร็จ
             user::where('user_id', Auth::user()->user_id)->update([
                 'ip_address' => $request->ip(),
-                'device' => $request->device
+                'device' => $request->device,
+                'last_active' => Carbon::now()
             ]);
+            // ออกจากระบบ อัตโนมัติ
+            Auth::logoutOtherDevices($request->password);
 
             return response()->json([
                 'message' => __('login.login_success').' '.__('login.please_wait_a_moment')
@@ -79,7 +82,7 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required',
             'roles' => 'required',
-            'lang' => 'required'
+            'language' => 'required'
         ];
 
         $customMessages = [
@@ -108,7 +111,7 @@ class AuthController extends Controller
             'lname' => $request->lname,
             'department_id' => $request->department_id,
             'email' => $request->email,
-            'lang' => $request->lang,
+            'language' => $request->language,
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'password_plain_text' => $request->password,

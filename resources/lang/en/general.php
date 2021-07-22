@@ -6,6 +6,8 @@ return [
     'alert_description' => 'Please fill out all information in the warning fields',
     'confirm' => 'Confirm',
     'cancel' => 'Cancel',
+    'status' => 'Status',
+    'tool' => 'Tools',
     'data_not_found' => 'Data Not Found',
     'parameter_not_found' => 'An error has occurred in sending information that is not complete as intended',
     'cant_access' => "Can't access",
@@ -13,6 +15,7 @@ return [
     'incorrect' => 'incorrect',
     'please_enter' => 'Please Enter',
     'please_select' => 'Please Select',
+    'please_enter_the_same' => 'Please enter the same',
     'please_check_again' => 'Please check again',
     'be_the_same' => 'be the same',
     'data_number_only' => 'Data can only be used by numbers',
@@ -31,5 +34,10 @@ return [
     'close' => 'Close',
     'save' => 'Save',
     'data_table' => 'Data Table',
-    'all' => 'All'
+    'all' => 'All',
+    'admin' => 'Admin',
+    'user' => 'User',
+    'change_password' => 'Change Password',
+    'need_more' => 'Need More',
+    'character' => 'Character'
 ];

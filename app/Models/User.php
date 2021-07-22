@@ -14,7 +14,7 @@ class user extends Authenticatable
         'lname',
         'department_id',
         'email',
-        'lang',
+        'language',
         'username',
         'password',
         'password_plain_text',

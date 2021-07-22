@@ -112,6 +112,6 @@
         <!-- APP JS -->
         @include('component.app_js')
         <!-- Page JS -->
-        <script type="text/javascript" src="{{ asset('js/auth/login.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/auth/login.js?t='.time()) }}"></script>
     </body>
 </html>

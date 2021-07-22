@@ -47,7 +47,7 @@ var readyFormSetting = function readyFormSetting() {
             "create-roles": {
                 required: true,
             },
-            "create-roles": {
+            "create-lang": {
                 required: true,
             }
         },
@@ -95,11 +95,11 @@ var readyFormSetting = function readyFormSetting() {
         },
         messages: {
             "change_password-password": {
-                required: "กรุณากรอก Password ที่จะตั้งใหม่",
+                required: trans('general.please_select') + " " + trans('staff_list.password_new'),
             },
             "change_password-password_confirm": {
-                required: "กรุณากรอก Password ยืนยันที่จะตั้งใหม่",
-                equalTo: "กรุณากรอกรหัสผ่านให้ตรงกัน"
+                required: trans('general.please_select') + " " + trans('staff_list.password_confirm'),
+                equalTo: trans('general.please_enter_the_same')
             }
         },
         submitHandler: function (form) {
@@ -110,25 +110,43 @@ var readyFormSetting = function readyFormSetting() {
     // Form Edit Validate
     $("#form-edit").validate({
         rules: {
-            "edit-staff_name": {
-                required: true
-            }, 
-            "edit-status": {
+            "edit-fname": {
                 required: true
             },
-            "edit-permission": {
+            "edit-lname": {
                 required: true
+            },
+            "edit-department_id": {
+                required: true
+            },
+            "edit-email": {
+                required: true
+            },
+            "edit-roles": {
+                required: true,
+            },
+            "edit-lang": {
+                required: true,
             }
         },
         messages: {
-            "edit-staff_name": {
-                required: "กรุณากรอก ชื่อ หรือว่านามแฝง",
+            "edit-fname": {
+                required: trans('general.please_enter') + ' ' + trans('staff_list.first_name'),
             },
-            "edit-status": {
-                required: "กรุณาเลือก สิทธิ์เข้าสู่ระบบ"
+            "edit-lname": {
+                required: trans('general.please_enter') + ' ' + trans('staff_list.last_name'),
             },
-            "edit-permission": {
-                required: "กรุณาเลือก กำหนดสิทธ์"
+            "edit-department_id": {
+                required: trans('general.please_enter') + ' ' + trans('staff_list.department'),
+            },
+            "edit-email": {
+                required: trans('general.please_enter') + ' ' + trans('staff_list.email'),
+            },
+            "edit-roles": {
+                required: trans('general.please_select') + ' ' + trans('staff_list.roles'),
+            },
+            "edit-lang": {
+                required: trans('general.please_select') + ' ' + trans('staff_list.language'),
             }
         },
         submitHandler: function (form) {
@@ -170,7 +188,7 @@ var readyTableSetting = function readyTableSetting() {
                     icon: 'error',
                     title: trans('general.alert'),
                     text: xhr.responseJSON.message,
-                    confirmButtonText: 'ยืนยัน'
+                    confirmButtonText: trans('general.confirm')
                 })
             }
         },
@@ -180,6 +198,9 @@ var readyTableSetting = function readyTableSetting() {
         }, {
             "data": 'roles',
             "name": 'roles',
+        }, {
+            "data": 'language',
+            "name": 'language',
         }, {
             "data": 'updated_at',
             "name": 'updated_at',
@@ -197,7 +218,7 @@ var readyTableSetting = function readyTableSetting() {
             },
             {
                 "className": 'text-center',
-                "targets": [0, 1, 2, 3, 4]
+                "targets": [0, 1, 2, 3, 4, 5]
             },
             {
                 "className": 'text-right',
@@ -217,6 +238,11 @@ var readyTableSetting = function readyTableSetting() {
             }, 1000);
         }
     });
+
+    // Time Setting
+    workerTimers.setInterval(() => {
+        $('#staffListTable').DataTable().draw();
+    }, 60000);
 }
 
 // Modal Create
@@ -251,7 +277,7 @@ var submitModalCreate = function submitModalCreate(element) {
             username: $("#create-username").val(),
             password: $("#create-password").val(),
             roles: $("#create-roles").val(),
-            lang: $("#create-lang").val()
+            language: $("#create-language").val()
         }
     })
     .then(function (response) {
@@ -339,9 +365,14 @@ var openModalEdit = function openModalEdit(element) {
             'show': true
         });
         // Set Data
-        $("#edit-staff_name").val(response.data.data.staff_name);
-        $("#edit-status").val(response.data.data.status).trigger('change');
-        $("#edit-permission").val(response.data.data.permission).trigger('change');
+        $("#edit-fname").val(response.data.data.fname);
+        $("#edit-lname").val(response.data.data.lname);
+        $("#edit-department_id").val(response.data.data.department_id).trigger('change');
+        $("#edit-email").val(response.data.data.email);
+        $("#edit-username").val(response.data.data.username);
+        $("#edit-password").val(response.data.data.password_plain_text == null ? '**********' : response.data.data.password_plain_text);
+        $("#edit-roles").val(response.data.data.roles).trigger('change');
+        $("#edit-language").val(response.data.data.language).trigger('change');
     })
     .catch(function (error) {
         generateSwalError(error.response.data);
@@ -368,18 +399,25 @@ var submitModalEdit = function submitModalEdit(element) {
         },
         data: {
             user_id: $(element).attr('data-user_id'),
-            staff_name: $("#edit-staff_name").val(),
-            status: $("#edit-status").val(),
-            permission: $("#edit-permission").val()
+            fname: $("#edit-fname").val(),
+            lname: $("#edit-lname").val(),
+            department_id: $("#edit-department_id").val(),
+            email: $("#edit-email").val(),
+            roles: $("#edit-roles").val(),
+            language: $("#edit-language").val()
         }
     })
     .then(function (response) {
-        $("#modalEdit").modal('hide');
-        $('#staffListTable').DataTable().draw();
-        toast.fire({
-            icon: 'success',
-            title: response.data.message
-        })
+        if (response.data.reloadPage == true) {
+            location.reload();
+        }else {
+            $("#modalEdit").modal('hide');
+            $('#staffListTable').DataTable().draw();
+            toast.fire({
+                icon: 'success',
+                title: response.data.message
+            })
+        }
     })
     .catch(function (error) {
         generateSwalError(error.response.data);

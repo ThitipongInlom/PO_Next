@@ -13,6 +13,8 @@ return [
     'email' => 'อีเมล์',
     'username' => 'ยูสเซอร์',
     'password' => 'รหัสผ่าน',
+    'password_new' => 'รหัสผ่านใหม่',
+    'password_confirm' => 'รหัสผ่านยืนยัน',
     'random_code' => 'สุ่มรหัส',
     'language' => 'ภาษา',
     'confirm_delete' => 'ยืนยัน ลบข้อมูล',
@@ -20,5 +22,9 @@ return [
     'user_information' => 'ข้อมูลยูสเซอร์',
     'no_history_online' => 'ยังไม่พบประวัติออนไลน์',
     'online' => 'ออนไลน์',
-    'offline' => 'ออฟไลน์'
+    'offline' => 'ออฟไลน์',
+    'password_change_success' => 'เปลี่ยนรหัสผ่านสำเร็จ',
+    'delete_data_success' => 'ลบข้อมูลสำเร็จ',
+    'data_update_success' => 'อัพเดตข้อมูลสำเร็จ',
+    'data_extraction_success' => 'ดึงข้อมูลสำเร็จ'
 ];

@@ -13,6 +13,8 @@ return [
     'email' => 'Email',
     'username' => 'Username',
     'password' => 'Password',
+    'password_new' => 'New Password',
+    'password_confirm' => 'Password Confirm',
     'random_code' => 'Random',
     'language' => 'Language',
     'confirm_delete' => 'Confirm Delete',
@@ -20,5 +22,9 @@ return [
     'user_information' => 'User information',
     'no_history_online' => 'No history found online',
     'online' => 'Online',
-    'offline' => 'Offline'
+    'offline' => 'Offline',
+    'password_change_success' => 'Password change successfully',
+    'delete_data_success' => 'Delete data successfully',
+    'data_update_success' => 'Data update successfully',
+    'data_extraction_success' => 'Data extraction success'
 ];

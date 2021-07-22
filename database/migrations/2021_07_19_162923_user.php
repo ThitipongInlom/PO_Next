@@ -20,7 +20,7 @@ class User extends Migration
             $table->string('lname')->nullable();
             $table->integer('department_id')->nullable();
             $table->string('email')->nullable();
-            $table->string('lang');
+            $table->string('language');
             $table->string('username');
             $table->string('password');
             $table->string('password_plain_text');

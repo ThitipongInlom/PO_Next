@@ -35,14 +35,15 @@
                                     </div>
                                 </div>
                                 <div class="block-content block-content-full">
-                                    <table class="table table-sm table-bordered table-striped table-vcenter js-dataTable-full dataTable" style="width:100%" id="staffListTable" role="grid">
+                                    <table class="table table-sm table-bordered table-striped table-vcenter js-dataTable-full nowrap" style="width:100%" id="staffListTable" role="grid">
                                         <thead>
                                             <tr role="row" class="text-center">
                                                 <th data-priority="1">{{ __('staff_list.full_name') }}</th>
                                                 <th>{{ __('staff_list.roles') }}</th>
+                                                <th>{{ __('staff_list.language') }}</th>
                                                 <th>{{ __('staff_list.last_online') }}</th>
-                                                <th data-priority="1">{{ __('staff_list.status') }}</th>
-                                                <th>{{ __('staff_list.tool') }}</th>
+                                                <th>{{ __('staff_list.status') }}</th>
+                                                <th data-priority="2">{{ __('staff_list.tool') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -118,15 +119,15 @@
                                         <div class="form-group mb-3">
                                             <label for="create-roles">{{ __('staff_list.roles') }}</label>
                                             <select class="js-select2 form-control" id="create-roles" name="create-roles" style="width: 100%;">
-                                                <option value="user">User</option>
-                                                <option value="admin">Admin</option>
+                                                <option value="user">{{ __('general.admin') }}</option>
+                                                <option value="admin">{{ __('general.user') }}</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-xl-6">
                                         <div class="form-group mb-3">
-                                            <label for="create-lang">{{ __('staff_list.language') }}</label>
-                                            <select class="js-select2 select_lang form-control" id="create-lang" name="create-lang" style="width: 100%;">
+                                            <label for="create-language">{{ __('staff_list.language') }}</label>
+                                            <select class="js-select2 select_lang form-control" id="create-language" name="create-language" style="width: 100%;">
                                                 <option value="th" data-select-image="{{ asset(Storage::url('assets/static/image/th.png')) }}">{{ __('general.thai') }}</option>
                                                 <option value="en" data-select-image="{{ asset(Storage::url('assets/static/image/en.png')) }}">{{ __('general.english') }}</option>
                                             </select>
@@ -156,7 +157,7 @@
                     <div class="block block-rounded block-themed block-transparent mb-0">
                         <form id="form-change_password" action="javascript:void(0)">
                             <div class="block-header bg-info">
-                                <h3 class="block-title text-white"><i class="fas fa-key mr-1"></i>เปลี่ยนพาส</h3>
+                                <h3 class="block-title text-white"><i class="fas fa-key mr-1"></i>{{ __('general.change_password') }}</h3>
                                 <div class="block-options">
                                     <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                         <i class="fa fa-fw fa-times"></i>
@@ -165,26 +166,26 @@
                             </div>
                             <div class="block-content font-size-sm">
                                 <div class="form-group mb-3">
-                                    <label for="change_password-password">รหัสผ่านใหม่</label>
+                                    <label for="change_password-password">{{ __('staff_list.password_new') }}</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control form-control-sm" id="change_password-password" name="change_password-password" placeholder="รหัสผ่านใหม่">
+                                        <input type="text" class="form-control form-control-sm" id="change_password-password" name="change_password-password" placeholder="{{ __('staff_list.password_new') }}">
                                         <div class="input-group-append">
-                                            <button class="btn btn-sm btn-outline-secondary" type="button" data-password_set="change_password-password" onclick="setRandomPassword(this)"><i class="fas fa-random mr-1"></i>สู่มรหัส</button>
+                                            <button class="btn btn-sm btn-outline-secondary" type="button" data-password_set="change_password-password" onclick="setRandomPassword(this)"><i class="fas fa-random mr-1"></i>{{ __('staff_list.random_code') }}</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="change_password-password_confirm">รหัสผ่าน ยืนยัน</label>
-                                    <input type="text" class="form-control form-control-sm" id="change_password-password_confirm" name="change_password-password_confirm" placeholder="รหัสผ่าน ยืนยัน">
+                                    <label for="change_password-password_confirm">{{ __('staff_list.password_confirm') }}</label>
+                                    <input type="text" class="form-control form-control-sm" id="change_password-password_confirm" name="change_password-password_confirm" placeholder="{{ __('staff_list.password_confirm') }}">
                                 </div>
                             </div>
                             <div class="block-content block-content-full text-right border-top">
                                 <div class="row">
                                     <div class="col-6 col-sm-6 col-xl-6">
-                                        <button type="button" class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times mr-1"></i>ปิด</button>
+                                        <button type="button" class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times mr-1"></i>{{ __('general.close') }}</button>
                                     </div>
                                     <div class="col-6 col-sm-6 col-xl-6">
-                                        <button type="submit" class="btn btn-sm btn-block btn-success" id="btnSubmitChangePassword"><i class="fas fa-save mr-1"></i>บันทึก</button>
+                                        <button type="submit" class="btn btn-sm btn-block btn-success" id="btnSubmitChangePassword"><i class="fas fa-save mr-1"></i>{{ __('general.save') }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -200,7 +201,7 @@
                     <div class="block block-rounded block-themed block-transparent mb-0">
                         <form id="form-edit" action="javascript:void(0)">
                             <div class="block-header bg-warning">
-                                <h3 class="block-title text-white"><i class="fa fa-edit mr-1"></i>{{ __('staff_list.edit_user') }}</h3>
+                                <h3 class="block-title text-white"><i class="fa fa-plus mr-1"></i>{{ __('staff_list.edit_user') }}</h3>
                                 <div class="block-options">
                                     <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                         <i class="fa fa-fw fa-times"></i>
@@ -208,34 +209,76 @@
                                 </div>
                             </div>
                             <div class="block-content font-size-sm">
-                                <div class="form-group">
-                                    <label for="edit-staff_name">นามแฝง</label>
-                                    <input type="text" class="form-control form-control-sm" id="edit-staff_name" name="edit-staff_name" placeholder="นามแฝง เข่น พนักงานเช้า">
-                                </div>
-                                <div class="form-group">
-                                    <label for="edit-status">สิทธิ์เข้าสู่ระบบ</label>
-                                    <select class="js-select2 form-control" id="edit-status" name="edit-status" style="width: 100%;">
-                                        <option value="">กรุณาเลือก</option>
-                                        <option value="0">ไม่สามารถเข้าสู่ระบบได้</option>
-                                        <option value="1">สามารถเข้าสู่ระบบได้</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="edit-permission">กำหนดสิทธ์</label>
-                                    <select class="js-select2 form-control" id="edit-permission" name="edit-permission" style="width: 100%;">
-                                        <option value="">กรุณาเลือก</option>
-                                        <option value="0">พนักงาน</option>
-                                        <option value="1">แอดมิน</option>
-                                    </select>
+                                <div class="row">
+                                    <div class="col-sm-12 col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label for="edit-fname">{{ __('staff_list.first_name') }}</label>
+                                            <input type="text" class="form-control form-control-sm" id="edit-fname" name="edit-fname" placeholder="{{ __('staff_list.first_name') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label for="edit-lname">{{ __('staff_list.last_name') }}</label>
+                                            <input type="text" class="form-control form-control-sm" id="edit-lname" name="edit-lname" placeholder="{{ __('staff_list.last_name') }}">
+                                        </div> 
+                                    </div>
+                                    <div class="col-sm-12 col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label for="edit-department_id">{{ __('staff_list.department') }}</label>
+                                            <select class="js-select2 form-control" id="edit-department_id" name="edit-department_id" style="width: 100%;">
+                                                @foreach ($department as $value)
+                                                    <option value="{{ $value->department_id }}">{{ $value->department_code }} | @if(app()->getLocale() == 'en') {{ $value->department_name_en }} @else {{ $value->department_name_th }} @endif</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label for="edit-email">{{ __('staff_list.email') }}</label>
+                                            <input type="text" class="form-control form-control-sm" id="edit-email" name="edit-email" placeholder="{{ __('staff_list.email') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label for="edit-username">{{ __('staff_list.username') }}</label>
+                                            <input type="text" class="form-control form-control-sm" id="edit-username" name="edit-username" placeholder="{{ __('staff_list.username') }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label for="edit-password">{{ __('staff_list.password') }}</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control form-control-sm" id="edit-password" name="edit-password" placeholder="{{ __('staff_list.password') }}" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label for="edit-roles">{{ __('staff_list.roles') }}</label>
+                                            <select class="js-select2 form-control" id="edit-roles" name="edit-roles" style="width: 100%;">
+                                                <option value="user">{{ __('general.admin') }}</option>
+                                                <option value="admin">{{ __('general.user') }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label for="edit-language">{{ __('staff_list.language') }}</label>
+                                            <select class="js-select2 select_lang form-control" id="edit-language" name="edit-language" style="width: 100%;">
+                                                <option value="th" data-select-image="{{ asset(Storage::url('assets/static/image/th.png')) }}">{{ __('general.thai') }}</option>
+                                                <option value="en" data-select-image="{{ asset(Storage::url('assets/static/image/en.png')) }}">{{ __('general.english') }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="block-content block-content-full text-right border-top">
                                 <div class="row">
                                     <div class="col-6 col-sm-6 col-xl-6">
-                                        <button type="button" class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times mr-1"></i>ปิด</button>
+                                        <button type="button" class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times mr-1"></i>{{ __('general.close') }}</button>
                                     </div>
                                     <div class="col-6 col-sm-6 col-xl-6">
-                                        <button type="submit" class="btn btn-sm btn-block btn-success" id="btnSubmitEdit"><i class="fas fa-save mr-1"></i>บันทึก</button>
+                                        <button type="submit" class="btn btn-sm btn-block btn-success" id="btnSubmitEdit"><i class="fas fa-save mr-1"></i>{{ __('general.save') }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -250,6 +293,6 @@
         <!-- APP JS -->
         @include('component.app_js')
         <!-- Page JS -->
-        <script type="text/javascript" src="{{ asset('js/admin/staff_list.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/admin/staff_list.js?t='.time()) }}"></script>
     </body>
 </html>
