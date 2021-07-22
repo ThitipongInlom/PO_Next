@@ -4,8 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\File;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,15 +22,18 @@ class Localization
         if (!empty(Auth::user()->lang)) {
             App::setlocale(Auth::user()->lang);
         }else {
-            App::setlocale('en');
+            App::setlocale('th');
         }
-        $langPath = resource_path('lang/'.App::getLocale());
-        collect(Storage::files($langPath))->flatMap(function($file) {
-            dump($file);
-            return [
-                $translation = $file->getBasename('.php') => trans($translation),
-            ];
-        } )->toJson();
+        Cache::has('translations') ? Cache::pull('translations') : "";
+        $filesLang = glob(resource_path('lang/'.App::getLocale().'/*.php'));
+        $strings = [];
+        foreach ($filesLang as $file) {
+            $name = basename($file, '.php');
+            $strings[$name] = require $file;
+        }
+        Cache::rememberForever('translations', function () use($strings) {
+            return json_encode($strings);
+        });
 
         return $next($request);
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Setting\FunctionController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -33,13 +34,13 @@ class AuthController extends Controller
         ];
 
         $customMessages = [
-            'required' => 'ไม่พบข้อมูล :attribute'
+            'required' => __('general.data_not_found').' :attribute'
         ];
 
         $validation = Validator::make($request->all(), $rules, $customMessages);
         if ($validation->fails()) {
             return response()->json([
-                'message' => 'เกิดข้อผิดพลาดในการส่งข้อมูลไม่ครบตามที่กำหนดไว้',
+                'message' => __('general.parameter_not_found'),
                 'error' => $validation->errors()
             ], 400); 
         }
@@ -49,22 +50,21 @@ class AuthController extends Controller
             if (Auth::user()->is_deleted == '0') {
                 Auth::logout();
                 return response()->json([
-                    'message' => 'Username ไม่สามารถเข้าใช้งานได้'
+                    'message' => __('login.username').' '.__('general.cant_access')
                 ], 400);
             }
             // อัพเดต หลังจาก Login สำเร็จ
             user::where('user_id', Auth::user()->user_id)->update([
                 'ip_address' => $request->ip(),
-                'device' => $request->device,
-                'last_active' => Carbon::now()
+                'device' => $request->device
             ]);
 
             return response()->json([
-                'message' => 'เข้าสู่ระบบสำเร็จ กรุณารอซักครู่'
+                'message' => __('login.login_success').' '.__('login.please_wait_a_moment')
             ], 200);
         }else{
             return response()->json([
-                'message' => 'Username หรือ Password ไม่ถูกต้อง กรุณาเช็คอีกรอบ'
+                'message' => __('login.username').' '.__('general.or').' '.__('login.password').' '.__('general.incorrect').' '.__('general.please_check_again')
             ], 400);
         }
     }
@@ -78,19 +78,20 @@ class AuthController extends Controller
             'email' => 'required',
             'username' => 'required',
             'password' => 'required',
-            'roles' => 'required'
+            'roles' => 'required',
+            'lang' => 'required'
         ];
 
         $customMessages = [
-            'required' => 'ไม่พบข้อมูล :attribute',
-            'confirmed' => 'กรุณากรอก :attribute ให้เหมือนกัน',
-            'numeric' => ':attribute ข้อมูลใช้ได้แค่ตัวเลข'
+            'required' => __('general.data_not_found').' :attribute',
+            'confirmed' => __('general.please_enter').' :attribute '.__('general.be_the_same'),
+            'numeric' => ':attribute '.__('general.data_number_only')
         ];
 
         $validation = Validator::make($request->all(), $rules, $customMessages);
         if ($validation->fails()) {
             return response()->json([
-                'message' => 'เกิดข้อผิดพลาดในการส่งข้อมูลไม่ครบตามที่กำหนดไว้',
+                'message' => __('general.parameter_not_found'),
                 'error' => $validation->errors()
             ], 400); 
         }
@@ -98,7 +99,7 @@ class AuthController extends Controller
         $counUser = user::where('username', $request->username)->count();
         if ($counUser == '1' || $counUser > '1') {
             return response()->json([
-                'message' => 'Username นี้มีในระบบแล้ว กรุณา ใช้ Username อื่น'
+                'message' => __('login.username').' '.__('general.already_exitsts_in_system').' '.__('general.please').' '.__('general.use').' '.__('login.username').' '.__('general.other')
             ], 400); 
         }
         // สร้าง User
@@ -107,6 +108,7 @@ class AuthController extends Controller
             'lname' => $request->lname,
             'department_id' => $request->department_id,
             'email' => $request->email,
+            'lang' => $request->lang,
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'password_plain_text' => $request->password,
@@ -115,7 +117,7 @@ class AuthController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'สร้าง User สำเร็จ'
+            'message' => __('general.create').' '.__('login.username').' '.__('general.success')
         ], 200); 
     }
 

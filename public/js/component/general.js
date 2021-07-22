@@ -1,6 +1,6 @@
 var setButtonLoading = function setButtonLoading(element, action) {
     var buttonOldText = window.localStorage.getItem('setButtonLoading');
-    var loadingText = '<div class="spinner-border spinner-border-sm mr-1" role="status"><span class = "sr-only"> Loading... </span></div>กำลังดำเนินการ';
+    var loadingText = '<div class="spinner-border spinner-border-sm mr-1" role="status"><span class = "sr-only"> Loading... </span></div>' + trans('general.loading');
     if (action == 'input') {
         window.localStorage.setItem('setButtonLoading', $(element).html());
         $(element).html(loadingText).attr('disabled', 'disabled');
@@ -10,9 +10,9 @@ var setButtonLoading = function setButtonLoading(element, action) {
     } else {
         Swal.fire({
             icon: 'error',
-            title: 'แจ้งเตือน!',
+            title: trans('general.alert'),
             text: 'ระบบ setButtonLoading Error',
-            confirmButtonText: '<i class="fas fa-check mr-1"></i>ยืนยัน'
+            confirmButtonText: '<i class="fas fa-check mr-1"></i>' + trans('general.confirm')
         });
     }
 }
@@ -36,9 +36,9 @@ var generateSwalError = function generateSwalError(data) {
     if (!data.error) {
         Swal.fire({
             icon: 'error',
-            title: 'แจ้งเตือน!',
+            title: trans('general.alert'),
             text: data.message,
-            confirmButtonText: '<i class="fas fa-check mr-1"></i>ยืนยัน'
+            confirmButtonText: '<i class="fas fa-check mr-1"></i>' + trans('general.confirm')
         })
     }else {
         var htmlOutput = '';
@@ -54,9 +54,9 @@ var generateSwalError = function generateSwalError(data) {
         // Alert
         Swal.fire({
             icon: 'error',
-            title: 'แจ้งเตือน!',
+            title: trans('general.alert'),
             html: htmlOutput,
-            confirmButtonText: '<i class="fas fa-check mr-1"></i>ยืนยัน'
+            confirmButtonText: '<i class="fas fa-check mr-1"></i>' + trans('general.confirm')
         })
     }
 }

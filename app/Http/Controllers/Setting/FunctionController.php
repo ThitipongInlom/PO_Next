@@ -31,4 +31,10 @@ class FunctionController extends Controller
             'message' => 'อัพเดตเวลาล่าสุด สำเร็จ'
         ], 200);    
     }
+
+    public static function autoRoutePort($url_name)
+    {
+        $arrayUrl = explode('/', $url_name);
+        return env('APP_URL').'/'.end($arrayUrl);
+    }
 }

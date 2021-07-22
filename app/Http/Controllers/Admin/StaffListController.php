@@ -37,7 +37,11 @@ class StaffListController extends Controller
                 }
             })
             ->editColumn('updated_at', function($data) {
-                return Carbon::parse($data->updated_at)->format('d/m/Y H:i:s');
+                if ($data->last_active == null) {
+                    return '<span class="text-danger font-w500">'.__('staff_list.no_history_online').'</span>';
+                }else {
+                    return Carbon::parse($data->last_active)->format('d/m/Y H:i:s');
+                }
             })
             ->editColumn('roles', function($data) {
                 if ($data->roles == 'admin') {
@@ -48,13 +52,13 @@ class StaffListController extends Controller
             })
             ->editColumn('last_active', function($data) {
                 if ($data->last_active == null) {
-                    return '<span class="badge badge-pill badge-danger">ออฟไลน์</span>';
+                    return '<span class="badge badge-pill badge-danger">'.__('staff_list.offline').'</span>';
                 }else {
                     $date_last_active = Carbon::parse($data->last_active)->locale('th');
                     if ($date_last_active->diffInMinutes(Carbon::now()) <= '5') {
-                        $last_active = '<span class="badge badge-pill badge-success">ออนไลน์</span>';
+                        $last_active = '<span class="badge badge-pill badge-success">'.__('staff_list.online').'</span>';
                     }else {
-                        $last_active = '<span class="badge badge-pill badge-danger">ออฟไลน์</span>';
+                        $last_active = '<span class="badge badge-pill badge-danger">'.__('staff_list.offline').'</span>';
                     }
                     return $last_active;
                 }
@@ -63,18 +67,18 @@ class StaffListController extends Controller
                 $attrData = "data-user_id='$data->user_id' ";
                 $btnOption = '<button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tools"></i> เครื่องมือ</button>';
                 $btnOption .= '<div class="dropdown-menu font-size-sm" aria-labelledby="dropdown-default-outline-secondary">';
-                // แก้ไข
+                // รายการเครื่องมือ
+                $btnOption .= '<a class="dropdown-item" '.$attrData.' onclick="openModalEdit(this)" href="javascript:void(0)"><i class="fas fa-edit mr-1"></i>'.__('general.edit').'</a>';
                 if (Auth::user()->roles == 'admin' && Auth::user()->user_id == $data->user_id || $data->roles == 'admin') {
                     // $btnOption .= '<a class="dropdown-item" '.$attrData.' onclick="openModalChangePassword(this)" href="javascript:void(0)"><i class="fas fa-key mr-1"></i>เปลี่ยนพาส</a>';
                 }
-                // $btnOption .= '<a class="dropdown-item" '.$attrData.' onclick="openModalEdit(this)" href="javascript:void(0)"><i class="fas fa-edit mr-1"></i>แก้ไข</a>';
-                $btnOption .= '<a class="dropdown-item" '.$attrData.' onclick="openModalDelete(this)" href="javascript:void(0)"><i class="fas fa-trash mr-1"></i> ลบ</a>';
+                $btnOption .= '<a class="dropdown-item" '.$attrData.' onclick="openModalDelete(this)" href="javascript:void(0)"><i class="fas fa-trash mr-1"></i>'.__('general.delete').'</a>';
 
                 $btnOption .= '</div>';
 
                 return $btnOption;
             })
-            ->rawColumns(['full_name', 'roles', 'last_active', 'action'])
+            ->rawColumns(['full_name', 'roles', 'updated_at', 'last_active', 'action'])
             ->make(true);
     }
 

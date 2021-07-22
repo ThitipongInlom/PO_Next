@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ env('APP_NAME') }} | LogIn</title>
+        <title>{{ env('APP_NAME') }} | {{ __('menu.login') }}</title>
         @include('component.app_css')
     </head>
 
@@ -18,7 +18,7 @@
                                 <div class="w-100">
                                     <span class="font-w600 font-size-h2 text-white">{{ env('APP_NAME') }}</span>
                                     <p class="text-white-75 mr-xl-8 mt-2">
-                                        ยินดีต้อนรับสู่ระบบ PO ของคุณ
+                                        {{ __('login.text_description') }}
                                     </p>
                                 </div>
                             </div>
@@ -51,24 +51,24 @@
                                             <i class="fa fa-2x fa-people-carry text-primary-light"></i>
                                         </p>
                                         <h1 class="font-w700 mb-2">
-                                            เข้าสู่ระบบ
+                                            {{ __('login.signin') }}
                                         </h1>
                                         <h2 class="font-size-base text-muted">
-                                            ยินดีต้อนรับ กรุณาเข้าสู่ระบบเพื่อใช้งานระบบ PO
+                                            {{ __('login.login_description') }}
                                         </h2>
                                     </div>
                                     <div class="row no-gutters justify-content-center">
                                         <div class="col-sm-8 col-xl-4">
                                             <form id="form-login" action="javascript:void(0)">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control form-control-lg form-control-alt py-4" id="username" name="username" placeholder="Username">
+                                                    <input type="text" class="form-control form-control-lg form-control-alt py-4" id="username" name="username" placeholder="{{ __('login.username') }}" tabindex="1">
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" class="form-control form-control-lg form-control-alt py-4" id="password" name="password" placeholder="Password">
+                                                    <input type="password" class="form-control form-control-lg form-control-alt py-4" id="password" name="password" placeholder="{{ __('login.password') }}" tabindex="2">
                                                 </div>
                                                 <div class="form-group d-flex justify-content-between align-items-center">
                                                     <button type="submit" class="btn btn-lg btn-block btn-alt-primary" id="btnLogin">
-                                                        <i class="fa fa-fw fa-sign-in-alt mr-1 opacity-50"></i> เข้าสู่ระบบ
+                                                        <i class="fa fa-fw fa-sign-in-alt mr-1 opacity-50"></i> {{ __('login.signin') }}
                                                     </button>
                                                 </div>
                                             </form>
@@ -97,7 +97,18 @@
                 </div>
             </main>
         </div>
-
+        <script>
+            // setup data
+            window.translations = {!! Cache::get('translations') !!};
+            // setup function
+            function trans(key, replace = {}){
+                let translation = key.split('.').reduce((t, i) => t[i] || null, window.translations);
+                for (var placeholder in replace) {
+                    translation = translation.replace(`:${placeholder}`, replace[placeholder]);
+                }
+                return translation;
+            }
+        </script>
         <!-- APP JS -->
         @include('component.app_js')
         <!-- Page JS -->

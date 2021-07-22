@@ -47,7 +47,7 @@ var validateConfigSetting = function validateConfigSetting() {
             var errors = validator.numberOfInvalids();
             if (errors) {
                 htmlOutput += '<div class="row">';
-                htmlOutput += '<div class="col-12 col-sm-12 col-xl-12 mb-1"><b>กรุณากรอก ข้อมูลให้ครบทุกช่องที่ขึ้นเตือน</b></div>';
+                htmlOutput += '<div class="col-12 col-sm-12 col-xl-12 mb-1"><b>' + trans('general.alert_description') + '</b></div>';
                 validator.errorList.forEach(element => {
                     htmlOutput += '<div class="col-12 col-sm-12 col-xl-12 mb-1 text-left">* ' + element.message + '</div>';
                 });
@@ -55,9 +55,9 @@ var validateConfigSetting = function validateConfigSetting() {
                 // Alert
                 Swal.fire({
                     icon: 'error',
-                    title: 'แจ้งเตือน!',
+                    title: trans('general.alert'),
                     html: htmlOutput,
-                    confirmButtonText: '<i class="fas fa-check mr-1"></i>ยืนยัน'
+                    confirmButtonText: '<i class="fas fa-check mr-1"></i>' + trans('general.confirm')
                 })
             }
         },

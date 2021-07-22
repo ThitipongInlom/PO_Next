@@ -3,6 +3,23 @@ $(document).ready(function () {
 
     readyFormSetting();
     readyTableSetting();
+    // Select สำหรับ ภาษา
+    $(".select_lang").select2({
+        templateResult: function (element) {
+            if ($(element.element).attr('data-select-image') != null) {
+                return $("<span><img width='30' src='" + $(element.element).attr('data-select-image') + "'> " + element.text + "</span>");
+            } else {
+                return $("<span>" + element.text + "</span>");
+            }
+        },
+        templateSelection: function (element) {
+            if ($(element.element).attr('data-select-image') != null) {
+                return $("<span><img width='30' src='" + $(element.element).attr('data-select-image') + "'> " + element.text + "</span>");
+            } else {
+                return $("<span>" + element.text + "</span>");
+            }
+        }
+    });
 });
 
 var readyFormSetting = function readyFormSetting() {
@@ -29,29 +46,35 @@ var readyFormSetting = function readyFormSetting() {
             },
             "create-roles": {
                 required: true,
+            },
+            "create-roles": {
+                required: true,
             }
         },
         messages: {
             "create-fname": {
-                required: "กรุณากรอก ชื่อจริง",
+                required: trans('general.please_enter') + ' ' + trans('staff_list.first_name'),
             },
             "create-lname": {
-                required: "กรุณากรอก นามสกุลจริง",
+                required: trans('general.please_enter') + ' ' + trans('staff_list.last_name'),
             },
             "create-department_id": {
-                required: "กรุณาเลือก แผนก",
+                required: trans('general.please_enter') + ' ' + trans('staff_list.department'),
             },
             "create-email": {
-                required: "กรุณากรอก อีเมล์",
+                required: trans('general.please_enter') + ' ' + trans('staff_list.email'),
             },
             "create-username": {
-                required: "กรุณากรอก ยูสเซอร์"
+                required: trans('general.please_enter') + ' ' + trans('staff_list.username'),
             },
             "create-password": {
-                required: "กรุณากรอก รหัสผ่าน",
+                required: trans('general.please_enter') + ' ' + trans('staff_list.password'),
             },
             "create-roles": {
-                required: "กรุณาเลือก กำหนดสิทธ์",
+                required: trans('general.please_select') + ' ' + trans('staff_list.roles'),
+            },
+            "create-lang": {
+                required: trans('general.please_select') + ' ' + trans('staff_list.language'),
             }
         },
         submitHandler: function (form) {
@@ -124,7 +147,7 @@ var readyTableSetting = function readyTableSetting() {
                 "display": $.fn.dataTable.Responsive.display.modal({
                     "header": function (row) {
                         var data = row.data();
-                        return 'ข้อมูลยูสเซอร์ ' + data.full_name;
+                        return trans('staff_list.user_information') + ' ' + data.full_name;
                     }
                 }),
                 "renderer": $.fn.dataTable.Responsive.renderer.tableAll({
@@ -134,7 +157,7 @@ var readyTableSetting = function readyTableSetting() {
         },
         "aLengthMenu": [
             [10, 25, -1],
-            ["10", "25", "ทั้งหมด"]
+            ["10", "25", trans('general.all')]
         ],
         "ajax": {
             "url": 'api/v1/datatable/get-datatable?action=Staff_List',
@@ -145,7 +168,7 @@ var readyTableSetting = function readyTableSetting() {
             "error": function (xhr, error, code) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'แจ้งเตือน!',
+                    title: trans('general.alert'),
                     text: xhr.responseJSON.message,
                     confirmButtonText: 'ยืนยัน'
                 })
@@ -227,7 +250,8 @@ var submitModalCreate = function submitModalCreate(element) {
             email: $("#create-email").val(),
             username: $("#create-username").val(),
             password: $("#create-password").val(),
-            roles: $("#create-roles").val()
+            roles: $("#create-roles").val(),
+            lang: $("#create-lang").val()
         }
     })
     .then(function (response) {
@@ -368,14 +392,14 @@ var submitModalEdit = function submitModalEdit(element) {
 var openModalDelete = function openModalDelete(element) {
     var toast = setToast();
     Swal.fire({
-        title: 'ยืนยัน ลบข้อมูล',
-        html: '<div class="text-danger text-center">การลบข้อมูล จะไม่สามารถเรียกข้อมูลเดิมกลับมาได้</div>',
+        title: trans('staff_list.confirm_delete'),
+        html: '<div class="text-danger text-center">' + trans('staff_list.confirm_delete_description') + '</div>',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#28C76F',
         cancelButtonColor: '#EA5455',
-        confirmButtonText: '<i class="fas fa-check mr-1"></i>ยืนยัน',
-        cancelButtonText: '<i class="fas fa-times mr-1"></i>ยกเลิก',
+        confirmButtonText: '<i class="fas fa-check mr-1"></i>' + trans('general.confirm'),
+        cancelButtonText: '<i class="fas fa-times mr-1"></i>' + trans('general.cancel'),
         reverseButtons: true,
         allowOutsideClick: () => {
             const popup = Swal.getPopup()

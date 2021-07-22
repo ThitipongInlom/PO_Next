@@ -32,7 +32,7 @@
                 <li class="nav-main-item">
                     <a class="nav-main-link @if(collect(request()->segments())->last() == 'dashboard') {{ 'active' }} @endif" href="{{ autoRoutePort(route('dashboard')) }}">
                         <i class="nav-main-link-icon fas fa-home"></i>
-                        <span class="nav-main-link-name">หน้าหลัก</span>
+                        <span class="nav-main-link-name">{{ __('menu.dashboard') }}</span>
                     </a>
                 </li>
                 @if (Auth::user()->roles == 'admin')
@@ -43,12 +43,12 @@
                     @endif">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                         <i class="nav-main-link-icon fa fa-user-lock"></i>
-                        <span class="nav-main-link-name">รายการผู้ดูแล</span>
+                        <span class="nav-main-link-name">{{ __('menu.admin_list') }}</span>
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
                             <a class="nav-main-link @if(collect(request()->segments())->last() == 'staff_list') {{ 'active' }} @endif" href="{{ autoRoutePort(route('staff_list')) }}">
-                                <span class="nav-main-link-name">ตั้งค่ายูสเซอร์</span>
+                                <span class="nav-main-link-name">{{ __('menu.user_setting') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -92,11 +92,11 @@
                     </div>
                     <div class="p-2">
                         <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                            <span class="font-size-sm font-w500"><i class="fas fa-user-cog mr-1"></i>ตั้งค่าบัญชี</span>
+                            <span class="font-size-sm font-w500"><i class="fas fa-user-cog mr-1"></i>{{ __('menu.profile_setting') }}</span>
                         </a>
                         <div role="separator" class="dropdown-divider"></div>
                         <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ autoRoutePort(route('logout')) }}">
-                            <span class="font-size-sm font-w500"><i class="fas fa-sign-out-alt mr-1"></i>ออกจากระบบ</span>
+                            <span class="font-size-sm font-w500"><i class="fas fa-sign-out-alt mr-1"></i>{{ __('login.signout') }}</span>
                         </a>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
     <div id="page-header-loader" class="overlay-header bg-white">
         <div class="content-header">
             <div class="w-100 text-center">
-                <span class="text-info"><i class="fa fa-fw fa-circle-notch fa-spin"></i> | โหลดรอซักครู่กำลังโหลดข้อมูล</span>
+                <span class="text-info"><i class="fa fa-fw fa-circle-notch fa-spin"></i> | {{ __('general.load_wait_a_moment_data') }}</span>
             </div>
         </div>
     </div>

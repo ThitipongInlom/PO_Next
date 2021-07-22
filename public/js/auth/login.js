@@ -18,10 +18,10 @@ var readyFormSetting = function readyFormSetting() {
         },
         messages: {
             username: {
-                required: "กรุณากรอก username",
+                required: trans('general.please_enter') + ' ' + trans('login.username'),
             },
             password: {
-                required: "กรุณากรอก password",
+                required: trans('general.please_enter') + ' ' + trans('login.password'),
             }
         },
         submitHandler: function (form) {
