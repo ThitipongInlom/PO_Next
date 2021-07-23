@@ -1,15 +1,8 @@
 <nav id="sidebar" aria-label="Main Navigation">
-    @php
-        function autoRoutePort($url_name)
-        {
-            $arrayUrl = explode('/', $url_name);
-            return env('APP_URL').'/'.end($arrayUrl);
-        }
-    @endphp
     <!-- Side Header -->
     <div class="content-header bg-white-5">
         <div class="text-center">
-            <a class="font-w600 text-dual" href="{{ autoRoutePort(route('dashboard')) }}">
+            <a class="font-w600 text-dual" href="{{ route('dashboard') }}">
                 <span class="smini-visible">
                     <i class="fa fa-people-carry text-primary-light"></i>
                 </span>
@@ -30,7 +23,7 @@
         <div class="content-side">
             <ul class="nav-main">
                 <li class="nav-main-item">
-                    <a class="nav-main-link @if(collect(request()->segments())->last() == 'dashboard') {{ 'active' }} @endif" href="{{ autoRoutePort(route('dashboard')) }}">
+                    <a class="nav-main-link @if(collect(request()->segments())->last() == 'dashboard') {{ 'active' }} @endif" href="{{ route('dashboard') }}">
                         <i class="nav-main-link-icon fas fa-home"></i>
                         <span class="nav-main-link-name">{{ __('menu.dashboard') }}</span>
                     </a>
@@ -47,7 +40,7 @@
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link @if(collect(request()->segments())->last() == 'staff_list') {{ 'active' }} @endif" href="{{ autoRoutePort(route('staff_list')) }}">
+                            <a class="nav-main-link @if(collect(request()->segments())->last() == 'staff_list') {{ 'active' }} @endif" href="{{ route('staff_list') }}">
                                 <span class="nav-main-link-name">{{ __('menu.user_setting') }}</span>
                             </a>
                         </li>
@@ -95,7 +88,7 @@
                             <span class="font-size-sm font-w500"><i class="fas fa-user-cog mr-1"></i>{{ __('menu.profile_setting') }}</span>
                         </a>
                         <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ autoRoutePort(route('logout')) }}">
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ route('logout') }}">
                             <span class="font-size-sm font-w500"><i class="fas fa-sign-out-alt mr-1"></i>{{ __('login.signout') }}</span>
                         </a>
                     </div>

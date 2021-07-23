@@ -43,7 +43,7 @@
                                                 <th>{{ __('staff_list.language') }}</th>
                                                 <th>{{ __('staff_list.last_online') }}</th>
                                                 <th>{{ __('staff_list.status') }}</th>
-                                                <th data-priority="2">{{ __('staff_list.tool') }}</th>
+                                                <th data-priority="1">{{ __('staff_list.tool') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>

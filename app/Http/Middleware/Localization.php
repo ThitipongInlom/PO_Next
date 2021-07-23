@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use App\Models\user;
 
 class Localization
 {
@@ -21,6 +23,9 @@ class Localization
     {
         if (!empty(Auth::user()->language)) {
             App::setlocale(Auth::user()->language);
+            user::where('user_id', Auth::user()->user_id)->update([
+                'last_active' => Carbon::now()
+            ]);
         }else {
             App::setlocale('th');
         }

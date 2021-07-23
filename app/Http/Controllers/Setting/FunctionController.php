@@ -32,9 +32,4 @@ class FunctionController extends Controller
         ], 200);    
     }
 
-    public static function autoRoutePort($url_name)
-    {
-        $arrayUrl = explode('/', $url_name);
-        return env('APP_URL').'/'.end($arrayUrl);
-    }
 }
