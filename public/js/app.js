@@ -1855,8 +1855,7 @@ window.Pace.start({
 
 window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js"); // Moment
 
-window.moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-window.moment.locale('th'); // worker-timers
+window.moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"); // worker-timers
 
 window.workerTimers = __webpack_require__(/*! worker-timers */ "./node_modules/worker-timers/build/es2019/module.js"); // Bootstrap Axios
 

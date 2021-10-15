@@ -14,7 +14,6 @@ window.Pace.start({
 window.Swal = require('sweetalert2');
 // Moment
 window.moment = require('moment');
-window.moment.locale('th');
 // worker-timers
 window.workerTimers = require('worker-timers');
 // Bootstrap Axios

@@ -9,6 +9,7 @@ Route::get('/', [$this->LinkNameSpace.\Auth\AuthController::class, 'pageLogin'])
 Route::get('submit-logout', [$this->LinkNameSpace.\Auth\AuthController::class, 'submitLogout'])->middleware('auth')->name('logout');
 // Page
 Route::get('dashboard', [$this->LinkNameSpace.\Page\DashboardController::class, 'pageDashobard'])->middleware('auth')->name('dashboard');
+Route::get('profile', [$this->LinkNameSpace.\Page\ProfileController::class, 'pageProfile'])->middleware('auth')->name('profile');
 // Admin
 Route::get('staff_list', [$this->LinkNameSpace.\Admin\StaffListController::class, 'pageStaffList'])->middleware('auth')->name('staff_list');
 // API
@@ -24,6 +25,10 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::post('submit-edit', [$this->LinkNameSpace.\Admin\StaffListController::class, 'submitEdit'])->middleware('auth');
         Route::post('submit-change_password', [$this->LinkNameSpace.\Admin\StaffListController::class, 'submitChangePassword'])->middleware('auth');
         Route::post('submit-delete', [$this->LinkNameSpace.\Admin\StaffListController::class, 'submitDelete'])->middleware('auth');
+    });
+    // Profile
+    Route::group(['prefix' => 'profile'], function () {
+        
     });
     // General
     Route::group(['prefix' => 'general'], function () {

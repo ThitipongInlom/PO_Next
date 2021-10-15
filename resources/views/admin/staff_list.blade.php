@@ -21,6 +21,13 @@
                                     {{ __('menu.user_setting') }}
                                 </h1>
                             </div>
+                            <div class="mt-3 mt-sm-0 ml-sm-3">
+                                <span class="animated fadeIn" id="dateTimeToday">
+                                    <div class="spinner-border spinner-border-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

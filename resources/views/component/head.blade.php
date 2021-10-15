@@ -84,7 +84,7 @@
                         <p class="mb-0 text-white-50 font-size-sm">@if(app()->getLocale() == 'en') {{ $department->department_name_en }} @else {{ $department->department_name_th }} @endif</p>
                     </div>
                     <div class="p-2">
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ route('profile') }}">
                             <span class="font-size-sm font-w500"><i class="fas fa-user-cog mr-1"></i>{{ __('menu.profile_setting') }}</span>
                         </a>
                         <div role="separator" class="dropdown-divider"></div>
